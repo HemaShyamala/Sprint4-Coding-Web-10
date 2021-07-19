@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        
+        #myForm {
+            width: 20%;
+            margin: auto;
+        }
+        
+        input {
+            display: block;
+            width: 100%;
+            margin: 2%;
+        }
+        
+        button {
+            width: 20%;
+            margin: auto;
+            margin-top: 2%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Enter Details to Checkout</h1>
+    <form id="myForm">
+        <input id="firstname" type="name" placeholder="firstname" />
+        <input id="lastname" type="name" placeholder="lastname" />
+        <input id="mobile" type="tel" placeholder="Mobile Number" />
+        <input id="Email" type="email" placeholder="Email" />
+        <input type="text" placeholder="###" />
+        <input id="street" type="text" placeholder="Street" />
+        <input id="town" type="text" placeholder="Town" />
+        <input type="text" placeholder="City" />
+        <input id="state" type="text" placeholder="State" />
+        <input id="pin" type="pincode" placeholder="Pincode" />
+    </form>
+    <button onclick="payment()">PROCEED TO PAY</button>
+</body>
+
+</html>
+<script>
+    function payment() {
+        var form = document.getElementById("myForm");
+        var firstname = form.firstname.value;
+        var lastname = form.lastname.value;
+        var mobile = form.mobile.value;
+        var email = form.Email.value;
+        var street = form.street.value;
+        var town = form.town.value;
+        var state = form.state.value;
+        var pin = form.pin.value;
+        if (
+            firstname != "" &&
+            lastname != "" &&
+            mobile != "" &&
+            email != "" &&
+            street != "" &&
+            town != "" &&
+            state != "" &&
+            pin != ""
+        ) {
+            window.location.href = "payment.html";
+        } else {
+            alert("Empty Fields");
+        }
+    }
+</script>
