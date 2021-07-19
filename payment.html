@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        
+        #myForm {
+            width: 20%;
+            margin: auto;
+        }
+        
+        input {
+            display: block;
+            width: 100%;
+            margin: 2%;
+        }
+        
+        button {
+            width: 20%;
+            margin: auto;
+            margin-top: 2%;
+        }
+        
+        #navbar {
+            margin-left: 2%;
+            width: 40%;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Debit Card Details</p>
+    <form id="myForm">
+        <input id="number" type="number" placeholder="16 Digit Debit Card Number" />
+        <input id="cvv" placeholder="cvv" /><input id="date" placeholder="dd/mm" />
+        <input id="name" placeholder="Name on The Card" />
+    </form>
+    <button onclick="payment()">SUBMIT</button>
+</body>
+
+</html>
+<script>
+    function payment() {
+        var form = document.getElementById("myForm");
+        var number = form.number.value;
+        var cvv = form.cvv.value;
+        var name = form.name.value;
+        var date = form.date.value;
+        if (number != "" && cvv != "" && name != "" && date != "") {
+            setTimeout(function() {
+                alert("Payment Successful, Your order is successfully placed");
+            }, 3000);
+        } else {
+            alert("Invalid Fields");
+        }
+    }
+</script>
