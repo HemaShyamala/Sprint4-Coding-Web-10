@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Jewellery Shop</title>
+    <style>
+        #container {
+            width: 90%;
+            display: grid;
+            grid-template-columns: 30% 30% 30%;
+            grid-gap: 3%;
+            margin: auto;
+        }
+        
+        #cards {
+            border: 2px solid black;
+        }
+        
+        #cards>img {
+            width: 100%;
+            height: 250px;
+        }
+        
+        #navbar {
+            margin-left: 5%;
+            width: 30%;
+            float: right;
+        }
+        
+        a {
+            margin-left: 2%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar">
+        <a href="">HOME</a>
+        <a href="products.html">PRODUCTS</a>
+        <a href="cart.html">CART</a>
+    </div>
+    <button onclick="sortLH()">Sort Price Low to High</button>
+    <button onclick="sortHL()">Sort Price Low to High</button>
+    <select onclick="filter()">
+      <option value="1">Rs.0-Rs.50000/-</option>
+      <option value="2">Rs.500001-Rs.150000/-</option>
+      <option value="3">Rs.150001-Rs.500000/-</option>
+    </select>
+    <div id="container"></div>
+</body>
+
+</html>
+<script>
+    function createProducts() {
+        let products = [{
+            name: "Diamond Ring",
+            price: 25000,
+            brand: "CaratLane",
+            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRywrcg7tnbv7DqKvMQg3VoWBLSVtrbf9U0BttDee580oAXm0iN7MAXmkLMjmsNak0g7ESFXtY&usqp=CAc",
+        }, {
+            name: "Gold Jhumka",
+            price: 95250,
+            brand: "Candere",
+            img: "https://staticimg.titan.co.in/Tanishq/Catalog/514115JDLABA00_1.jpg?impolicy=pqmedlow&imwidth=320",
+        }, {
+            name: "Bangle",
+            price: 75000,
+            brand: "Candere",
+            img: "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95//U/B/UB00363-YG0000_11_listfront.jpg",
+        }, {
+            name: "Pendant",
+            price: 12000,
+            brand: "Candere",
+            img: "https://cdn.caratlane.com/media/catalog/product/J/L/JL03372-YGP9EB_1_lar.jpg",
+        }, {
+            name: "Necklace",
+            price: 45000,
+            brand: "Pipa Bella",
+            img: "https://cdn1.caratlane.com/media/catalog/product/J/L/JL03197-YGP900_1_lar.jpg",
+        }, {
+            name: "Haram",
+            price: 225000,
+            brand: "Pipa Bella",
+            img: "https://i.pinimg.com/originals/c3/90/b8/c390b801d43cc104d27ee5844f387d7b.jpg",
+        }, {
+            name: "Silver Anklet",
+            price: 8000,
+            brand: "Candere",
+            img: "https://tiimg.tistatic.com/fp/3/006/182/silver-fancy-silver-anklets-117.jpg?tr=n-w341",
+        }, {
+            name: "Bracelet",
+            price: 12500,
+            brand: "Pipa Bella",
+            img: "https://images-na.ssl-images-amazon.com/images/I/61YjYQUSnwL._UY395_.jpg",
+        }, {
+            name: "Studs",
+            price: 35000,
+            brand: "CaratLane",
+            img: "https://www.candere.com/media/catalog/product/cache/1/thumbnail/9df78eab33525d08d6e5fb8d27136e95/g/e/ge00544_1.jpeg",
+        }, {
+            name: "Wedding Set",
+            price: 525000,
+            brand: "CaratLane",
+            img: "https://cdn.shopclues.com/images1/thumbnails/103935/320/320/136179489-103935042-1576233955.jpg",
+        }, ];
+        //   console.log(products);
+        if (localStorage.getItem("jewels") == null) {
+            localStorage.setItem("jewels", JSON.stringify(products));
+        }
+    }
+    createProducts();
+    var arr = JSON.parse(localStorage.getItem("Jewels"));
+    //  console.log(arr);
+
+    function appendItems(d) {
+        let products = d;
+        var div = document.getElementById("container");
+        // div.innerHTML = null;
+        for (let i = 0; i < products.length; i++) {
+            let name = products[i].name;
+            //console.log(name);
+            let price = products[i].price;
+            let url = products[i].img;
+            let brand = products[i].brand;
+
+            var innerDiv = document.createElement("div");
+            innerDiv.innerHTML = null;
+            innerDiv.setAttribute("id", "cards");
+            var name_div = document.createElement("p");
+            name_div.innerHTML = `Product: ${name}`;
+
+            var price_div = document.createElement("p");
+            price_div.innerHTML = `Price: ${price} inr.`;
+
+            var brand_div = document.createElement("p");
+            brand_div.innerHTML = `Brand: ${brand}`;
+
+            var img = document.createElement("img");
+            img.src = url;
+            var button = document.createElement("button");
+            button.textContent = "Add to Cart";
+            button.onclick = function() {
+                addTocart(products[i]);
+            };
+
+            innerDiv.append(img, name_div, price_div, brand_div, button);
+            div.append(innerDiv);
+        }
+    }
+    appendItems(JSON.parse(localStorage.getItem("jewels")));
+
+    function addTocart(thing) {
+        let arr = localStorage.getItem("Jewelcart");
+        if (arr == null) {
+            arr = [];
+        } else {
+            arr = JSON.parse(arr);
+        }
+        arr.push(thing);
+        localStorage.setItem("Jewelcart", JSON.stringify(arr));
+        console.log(arr);
+    }
+    let data = localStorage.getItem("jewels");
+    //  console.log(data);
+    if (data != null) {}
+
+    function sortLH() {
+        var arr = JSON.parse(localStorage.getItem("jewels"));
+        arr = arr.sort(function(a, b) {
+            return a.price - b.price;
+        });
+    }
+
+    function sortHL() {
+        var arr = JSON.parse(localStorage.getItem("jewels"));
+        arr = arr.sort(function(a, b) {
+            return b.price - a.price;
+        });
+    }
+    var arr = [];
+
+    function filter() {
+        var arr = JSON.parse(localStorage.getItem("jewels"));
+
+        for (var i = 0; i < data.length; i++) {
+            if (arr[i].price < 50001) {
+                arr.push(data[i]);
+            }
+        }
+        return arr;
+    }
+</script>
