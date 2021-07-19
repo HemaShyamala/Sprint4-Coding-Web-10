@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        #cart {
+            width: 70%;
+            display: grid;
+            grid-template-columns: 50% 50%;
+            grid-gap: 3%;
+        }
+        
+        #cards {
+            border: 2px solid black;
+        }
+        
+        #cards>img {
+            width: 100%;
+            min-height: 300px;
+            max-height: 300px;
+        }
+        
+        #total {
+            clear: both;
+            width: 80%;
+            margin-top: 5%;
+        }
+        
+        #navbar {
+            margin-left: 5%;
+            width: 30%;
+            float: right;
+        }
+        
+        a {
+            margin-left: 2%;
+        }
+    </style>
+</head>
+
+<body>
+    CART PAGE
+    <div id="navbar">
+        <a href="home.html">HOME</a>
+        <a href="products.html">PRODUCTS</a>
+        <a href="cart.html">CART</a>
+    </div>
+    <div id="cart"></div>
+    <div id="total"></div>
+</body>
+
+</html>
+<script>
+    let div = document.getElementById("cart");
+
+    var sum = 0;
+
+    function cartShow() {
+        let data = localStorage.getItem("Jewelcart");
+        //  console.log(data);
+        if (data != null) {
+            data = JSON.parse(data);
+
+            data.forEach(function(thing) {
+                let innerDiv = document.createElement("div");
+                innerDiv.setAttribute("id", "cards");
+
+                let name = thing.name;
+
+                let price = thing.price;
+                let url = thing.img;
+                let brand = thing.brand;
+                var name_div = document.createElement("p");
+                name_div.innerHTML = `Product: ${name}`;
+
+                var price_div = document.createElement("p");
+                price_div.innerHTML = `Price: ${price} inr.`;
+
+                var brand_div = document.createElement("p");
+                brand_div.innerHTML = `Brand: ${brand}`;
+
+                var img = document.createElement("img");
+                img.src = url;
+                sum += price;
+
+                innerDiv.append(img, name_div, price_div, brand_div);
+                div.append(innerDiv);
+            });
+            //console.log(sum);
+
+            //  var promo = input.value;
+            // if (promo === coupon) {
+            //     sum = (sum * 30) / 100;
+            //     total.innerHTMl = `<p>Total</p><p>${sum}<p>PromoCode Applied</p></p>`;
+            // } else {
+            //     total.innerHTMl = `<p>Total</p><p>${sum}</p>`;
+            // }
+        }
+    }
+    cartShow();
+
+    var checkDiv = document.getElementById("total");
+    var input = document.createElement("input");
+    input.placeholder = "Enter Promo Code";
+    var submit = document.createElement("button");
+    submit.innerHTML = "APPLY PROMOCODE";
+
+    var total = document.createElement("p");
+    let coupon = "masai30";
+    var newSum = sum;
+    submit.onclick = function promo() {
+        var promo = input.value;
+        if (promo == "masai30") {
+            sum = (sum * 70) / 100;
+            console.log(sum);
+            total.innerHTML = `Total Amount: ${sum}`;
+        }
+    };
+    total.innerHTML = `Total Amount: ${newSum}`;
+    var checkout = document.createElement("button");
+    checkout.textContent = "CHECKOUT";
+    checkout.onclick = function checkout() {
+        window.location.href = "checkout.html";
+    };
+    checkDiv.append(input, submit, total, checkout);
+</script>
